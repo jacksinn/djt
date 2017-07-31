@@ -18,6 +18,7 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
+	"github.com/jacksinn/djt/text"
 )
 
 // addCmd represents the add command
@@ -28,7 +29,15 @@ var addCmd = &cobra.Command{
 	Run: addRun,
 }
 func addRun(cmd *cobra.Command, args []string) {
-	fmt.Println("add called")
+	nouns := []text.Noun{}
+	for _, x := range args {
+		nouns = append(nouns, text.Noun{Text:x})
+	}
+	err := text.SaveNouns("nouns.json", nouns)
+	if err != nil {
+		fmt.Errorf("%v", err)
+	}
+	fmt.Println(nouns)
 }
 func init() {
 	RootCmd.AddCommand(addCmd)
