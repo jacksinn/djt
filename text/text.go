@@ -19,6 +19,5 @@ func SaveNouns(filename string, nouns []Noun) error {
 	if err != nil {
 		return err
 	}
-
 	return nil
 }
