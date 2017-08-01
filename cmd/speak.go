@@ -41,12 +41,20 @@ func speakRun(cmd *cobra.Command, args []string) {
 	if err != nil {
 		log.Printf("%v", err)
 	}
+
+	adjectives, err := text.ReadAdjectives("adjectives.json")
+	if err != nil {
+		log.Printf("%v", err)
+	}
+
 	// Get random Seed
 	rand.Seed(time.Now().Unix())
 	// Get random Noun
 	noun := nouns[rand.Intn(len(nouns))].Text
-	fmt.Printf("This %v is, believe me, the greatest %v in the history of %vs. Bigly.\n",
-		noun, noun, noun)
+	adjective := adjectives[rand.Intn(len(adjectives))].Text
+
+	fmt.Printf("This %v is, believe me, the %vest %v in the history of %vs. Bigly!\n",
+		noun, adjective, noun, noun)
 }
 
 func init() {
