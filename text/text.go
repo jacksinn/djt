@@ -21,3 +21,15 @@ func SaveNouns(filename string, nouns []Noun) error {
 	}
 	return nil
 }
+
+func ReadNouns(filename string) ([]Noun, error) {
+	b, err := ioutil.ReadFile(filename)
+	if err != nil {
+		return []Noun{}, err
+	}
+	var nouns []Noun
+	if err := json.Unmarshal(b, &nouns); err != nil {
+		return []Noun{}, err
+	}
+	return nouns, nil
+}

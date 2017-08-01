@@ -18,6 +18,10 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
+	"github.com/jacksinn/djt/text"
+	"log"
+	"math/rand"
+	"time"
 )
 
 // speakCmd represents the speak command
@@ -33,7 +37,16 @@ to quickly create a Cobra application.`,
 	Run: speakRun,
 }
 func speakRun(cmd *cobra.Command, args []string) {
-	fmt.Println("This [noun] is, believe me, the greatest [noun] in the history of [nouns]. Bigly.")
+	nouns, err := text.ReadNouns("nouns.json")
+	if err != nil {
+		log.Printf("%v", err)
+	}
+	// Get random Seed
+	rand.Seed(time.Now().Unix())
+	// Get random Noun
+	noun := nouns[rand.Intn(len(nouns))].Text
+	fmt.Printf("This %v is, believe me, the greatest %v in the history of %vs. Bigly.\n",
+		noun, noun, noun)
 }
 
 func init() {
